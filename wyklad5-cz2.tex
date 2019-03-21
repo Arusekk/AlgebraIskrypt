@@ -1,0 +1,184 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{polski}
+\usepackage[T1]{fontenc}
+%\usepackage{indentfirst}
+\usepackage{ wasysym }
+\usepackage{hyperref}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\frenchspacing
+
+%\renewcommand{\arraystretch}{3.0}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+% Pisanie za każdym razem \mathbb{R} jest zbyt długie, teraz wystarczy \RR.
+\newcommand{\RR}{\mathbb{R}}
+% tak samo \overrightarrow
+\newcommand{\V}[1]{\overrightarrow{#1}}
+\newcommand{\Pair}[2]{\left<#1,#2\right>}
+\newcommand{\emtarny}{\begin{pmatrix}0\\\vdots\\1\\\vdots\\0\end{pmatrix}}
+\newcommand{\skreslona}{\begin{vmatrix}&|&\\-&+&-\\&|&\end{vmatrix}}
+\renewcommand{\qed}{$\square$}
+
+% Definicja stylów:
+\theoremstyle{plain}
+\newtheorem{tw}{Twierdzenie}[section]
+\theoremstyle{definition}
+\newtheorem{ft}{Fakt}[section]
+\theoremstyle{definition}
+\newtheorem{df}{Definicja}[section]
+\theoremstyle{definition}
+\newtheorem*{nt}{Notacja}
+\theoremstyle{definition}
+\newtheorem*{dd}{Dowód}
+\theoremstyle{definition}
+\newtheorem*{lem}{Lemat}
+\theoremstyle{definition}
+\newtheorem*{prz}{Przykład}
+\theoremstyle{definition}
+\newtheorem*{przy}{Przykłady}
+\theoremstyle{definition}
+\newtheorem*{uw}{Uwaga}
+\theoremstyle{definition}
+\newtheorem*{wn}{Wnioski}
+
+\begin{document}
+\begin{dd}
+  (lematu)
+
+  Jeśli $F$ jest odwracalna, to istnieje $G: K^n \rightarrow K^n$, $G(X)=BX$,
+  takie że
+  \[F \circ G = G \circ F = id\]
+  \[m(F \circ G) = m(G \circ F) = I\]
+  \[AB = BA = I\]
+  czyli $B=A^{-1}$ ($A$ odwracalna).
+  \[1 = \det (AB) \overset{\text{ćw}} = \det A \det B\]
+  więc $\det A \neq 0$.
+
+  W~drugą stronę ($\det A \neq 0 \Rightarrow A \text{ odwracalna} \land B \text{ odwracalna}$) to wniosek z~następnego faktu.
+  \hfill \qed
+\end{dd}
+\begin{ft}
+  $B = (b, j)$ jest macierzą odwrotną do $A$, wtedy i~tylko wtedy, gdy:
+  \[b_{ji} = \frac1{\det A}(-1)^{i+j}\skreslona\]
+\end{ft}
+\begin{prz}
+  \[A = \begin{pmatrix}1&0&1\\0&2&1\\1&1&1\end{pmatrix}\qquad\det A = -1\]
+  \[A^{-1}=\frac1{-1}\begin{pmatrix}1&+1&-2\\+1&0&-1\\-2&-1&2\end{pmatrix}^T
+    =\begin{pmatrix}-1&-1&2\\-1&0&-1\\2&1&-2\end{pmatrix}\]
+\end{prz}
+\begin{dd}
+  (faktu)
+
+  \[AB=I\]
+  \[A\cdot(B_1, \dots, B_n)=(e_1, \dots, e_n)\]
+  \[AB_i=e_i \qquad e_i = \emtarny i\]
+  układ Cramera.
+  \[A\begin{pmatrix}b_{1i}\\\vdots\\b_{ni}\end{pmatrix} = \emtarny i\]
+    \[b_{ji}=\frac{\det(A_1,\dots,e_i,\dots,A_n}{\det A}=\frac1{\det A}i
+    \begin{vmatrix}
+      a_{11}&\dots&0&\dots&a_{1n}\\
+      &&\vdots&&\\
+      &&1&&\\
+      &&\vdots&&\\
+      a_{n1}&\dots&0&\dots&a_{nn}
+    \end{vmatrix} = \frac1{\det A}1\cdot(-1)^{i+j}\skreslona\]
+\end{dd}
+\begin{uw}
+  Operacje elementarne (wierszowe i~kolumnowe) nie wpływają na zerowanie się
+  wyznacznika.
+\end{uw}
+\begin{ft}
+  Dany jest \textit{jednorodny} układ równań liniowych ($a_{ij} \in K$).
+  \[\text{(J)}\left\{\begin{array}{l}
+      a_{11}x_1+\dots+a_{1n}x_n = 0
+      \\\vdots\\
+      a_{m1}x_1+\dots+a_{mn}x_n = 0
+    \end{array}\right.\]
+  Zbiór rozwiązań układu (J) jest podprzestrzenią $K^n$.
+\end{ft}
+\begin{dd}
+  Oznaczmy $X = \begin{pmatrix}x_1\\\vdots\\x_n\end{pmatrix}$.
+  \[F: K^n \rightarrow K^m, F(X)=AX\]
+  zbiór rozwiązań to $\mathrm{ker}F < K^n$.
+  \hfill \qed
+\end{dd}
+\begin{ft}
+  Dany jest \textit{niejednorodny} układ równań liniowych
+  ($a_{ij}, b_i \in K$):
+  \[\text{(NJ)}\left\{\begin{array}{l}
+      a_{11}x_1+\dots+a_{1n}x_n = b_1
+      \\\vdots\\
+      a_{m1}x_1+\dots+a_{mn}x_n = b_m
+    \end{array}\right.\]
+  Zbiór rozwiązań układu (NJ) jest albo $\emptyset$ albo ${v}+\mathrm{ker}F$,
+  gdzie:
+  \begin{itemize}
+    \item $F: K^n \rightarrow K^m, F(X)=AX$
+    \item $v$ - \textit{dowolne} rozwiązanie (NJ).
+  \end{itemize}
+\end{ft}
+\begin{dd}
+  \[F^{-1}[b]\]
+
+  $1^\circ$ $b \notin \mathrm{Im} F$
+  \[F^{-1}[b] = \emptyset\]
+
+  $2^\circ$ $b \in \mathrm{Im} F$ \\
+  \begin{center}$b= F(v)$ dla pewnego (jakiegokolwiek) $v\in K^n$\end{center}
+
+  $v'$ jest rozwiązaniem (NJ) $\Leftrightarrow F(v')=b$
+  \[F(v+(v'-v)) = b\]
+  \[F(v)+F(v'-v) = b\]
+  \[b+\overbrace{F(v'-v)}^0 = b\]
+  \[v'-v \in \mathrm{ker}F\]
+  \hfill \qed
+\end{dd}
+\begin{def}
+  \textit{Warstwą} podprzestrzeni $W < V$ nazywamy każdy zbiór postaci
+  $v + W \subseteq V$. Zbiór wszystkich warstw podprzestrzeni $W < V$
+  oznaczamy $V/W$.
+\end{def}  
+\begin{ft}
+  Jeśli na~przestrzeni liniowej $V$ wprowadzimy relację
+  \[\sim_W: v\sim_Wv' \Leftrightarrow v-v'\in W\]
+  (gdzie $W$ --- ustalona podprzestrzeń), to:
+  \begin{enumerate}
+    \item $\sim_W$ jest relacją równoważności
+    \item $[v]_{\sim_W} = v+W$
+  \end{enumerate}
+  Dowód --- ćw.
+\end{ft}
+\begin{ft}
+  $V/W$ z~działaniami:
+  \begin{itemize}
+    \item $(v+W)+(v'+W) = (v+v')+W$
+    \item $\alpha(v+W) = (\alpha v) + W$
+  \end{itemize}
+  jest przestrzenią liniową (ilorazową).
+\end{ft}
+\begin{ft}
+  $\dim(V/W) = \dim V - \dim W$
+\end{ft}
+\begin{dd}
+  \[V \ni v \overset F\longmapsto v+W \in V/W\]
+  \[\mathrm{ker}F = W\]
+  twierdzenie o indeksie:
+  \[\dim V = \underbrace{\dim\mathrm{ker}F}_{\dim W} + \underbrace{\dim\mathrm{Im}F}_{\dim(V/W)}\]
+  \hfill \qed
+\end{dd}
+\end{document}
